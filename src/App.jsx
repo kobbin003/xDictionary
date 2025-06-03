@@ -15,15 +15,26 @@ const dictionary = [
 function App() {
 	const [word, setWord] = useState("");
 	const [definition, setDefinition] = useState("");
+	const [message, setMessage] = useState("");
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
+		// clear the previous UI on button click:
+
+		setMessage("");
+		setDefinition("");
+
+		if (!word) {
+			setMessage("Word not found in the dictionary.");
+			return;
+		}
 		const definition = dictionary.find(
 			(pair) => pair.word.toLowerCase() == word.toLowerCase()
 		);
 		if (definition) {
 			setDefinition(definition["meaning"]);
 		} else {
-			setDefinition("Word not found in the dictionary.");
+			setMessage("Word not found in the dictionary.");
 		}
 	};
 
@@ -45,7 +56,8 @@ function App() {
 			</form>
 			<div>
 				<h3>Defintion:</h3>
-				<p>{definition}</p>
+				{definition && <p>{definition}</p>}
+				{message && <p>{message}</p>}
 			</div>
 		</div>
 	);
