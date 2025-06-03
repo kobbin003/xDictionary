@@ -17,7 +17,9 @@ function App() {
 	const [definition, setDefinition] = useState("");
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const definition = dictionary.find((pair) => pair.word == word);
+		const definition = dictionary.find(
+			(pair) => pair.word.toLowerCase() == word.toLowerCase()
+		);
 		if (definition) {
 			setDefinition(definition["meaning"]);
 		} else {
